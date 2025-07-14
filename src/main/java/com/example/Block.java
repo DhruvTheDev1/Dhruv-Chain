@@ -7,6 +7,7 @@ public class Block {
   public String previousHash; // holds the previous blocks hash
   private String data; // block data
   private long timeStamp; // returns num of milliseconds
+  private int nonce; // a number used only once in cryptographic communication
 
   public Block(String data, String previousHash) {
     this.data = data;
@@ -23,5 +24,16 @@ public class Block {
       data
     );
     return calculatedHash;
+  }
+
+  public void mineBlock(int difficulty) {
+    //Create a string with difficulty * "0" 
+    String target = new String(new char[difficulty]).replace('\0', '0'); 
+
+    while (!hash.substring(0, difficulty).equals(target)) {
+      nonce++;
+      hash = calculateHash();
+    }
+    System.out.println("Block mined! : "  + hash);
   }
 }
