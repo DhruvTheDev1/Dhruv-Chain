@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 public class TestChain {
 
   public static List<Block> blockchain = new ArrayList<>();
-  public static int difficulty = 0;
+  public static int difficulty = 5;
 
   public static void main(String[] args) {
 
@@ -31,7 +31,7 @@ public class TestChain {
 
     String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
     System.out.println("\nThe blockchain: ");
-   // System.out.println(blockchainJson);
+    System.out.println(blockchainJson);
   }
 
   public static boolean validate() {
