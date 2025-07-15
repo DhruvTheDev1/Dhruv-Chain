@@ -3,6 +3,9 @@ This is my personal learning project that helps me to better understand blockcha
 time to understand each concept from hashes and chaining to mining and how nonce is used in blockchain. This is a proof of implementation to help understand blockchain technology.
 
 # Part 1 
+<img width="828" height="323" alt="image" src="https://github.com/user-attachments/assets/e65ad4ca-0109-4006-b52f-b242b3a59880" />
+
+
 
 ## What I built
 - My first very own blockchain (Dhruv-chain)
