@@ -1,5 +1,6 @@
 package com.example;
 import java.security.MessageDigest;
+import java.security.PublicKey;
 
 // hash's a string using SHA-256
 public class SHA256HashingUtil {
@@ -25,5 +26,10 @@ public class SHA256HashingUtil {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public static int getStringFromKey(PublicKey sender) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getStringFromKey'");
   }
 }
