@@ -1,5 +1,6 @@
 package com.example;
 
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,4 +32,23 @@ public class Transaction {
             SHA256HashingUtil.getStringFromKey(recipient) +
             Float.toString(value) + sequence);
   }
+
+  // creates digital signature for transaction details
+  // sender, recipient, value
+  public void generateDigitalSignature(PrivateKey privateKey) {
+    String data = SHA256HashingUtil.getStringFromKey(sender) + SHA256HashingUtil.getStringFromKey(recipient) +
+    Float.valueOf(value);
+    
+    signature = SHA256HashingUtil.applyDigitalSig(privateKey, data);
+  }
+
+  // verifies the authenticity of the transaction
+  public boolean verifiyDigitalSignature() {
+    String data = SHA256HashingUtil.getStringFromKey(sender) + SHA256HashingUtil.getStringFromKey(recipient) +
+    Float.valueOf(value);
+
+    return SHA256HashingUtil.verifyDigitalSig(sender, data, signature);
+  }
+
+
 }
