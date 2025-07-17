@@ -2,7 +2,9 @@ package com.example;
 
 import java.security.Security;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.GsonBuilder;
 
@@ -10,6 +12,7 @@ public class TestChain {
 
   public static List<Block> blockchain = new ArrayList<>();
   public static int difficulty = 3;
+  public static Map<String, TransactionOutput> UTXOs = new HashMap<>(); // unspent transactions
   public static Wallet walletA;
   public static Wallet walletB;
 
@@ -30,7 +33,7 @@ public class TestChain {
     transaction.generateDigitalSignature(walletA.privateKey);
 
     System.out.println("Signature Verified " + transaction.verifiyDigitalSignature());
-    
+
     // //data, previous hash
     // blockchain.add(new Block("First Block", "0"));
     // System.out.println("Trying to mine block 1...");
