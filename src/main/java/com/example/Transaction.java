@@ -28,7 +28,7 @@ public class Transaction {
   private String calculateHash() {
     sequence++;
     return SHA256HashingUtil.applyHash(
-            SHA256HashingUtil.getStringFromKey(sender) +
+        SHA256HashingUtil.getStringFromKey(sender) +
             SHA256HashingUtil.getStringFromKey(recipient) +
             Float.toString(value) + sequence);
   }
@@ -37,18 +37,17 @@ public class Transaction {
   // sender, recipient, value
   public void generateDigitalSignature(PrivateKey privateKey) {
     String data = SHA256HashingUtil.getStringFromKey(sender) + SHA256HashingUtil.getStringFromKey(recipient) +
-    Float.valueOf(value);
-    
-    signature = SHA256HashingUtil.applyDigitalSig(privateKey, data);
+        Float.valueOf(value);
+
+    this.signature = SHA256HashingUtil.applyDigitalSig(privateKey, data);
   }
 
   // verifies the authenticity of the transaction
   public boolean verifiyDigitalSignature() {
     String data = SHA256HashingUtil.getStringFromKey(sender) + SHA256HashingUtil.getStringFromKey(recipient) +
-    Float.valueOf(value);
+        Float.valueOf(value);
 
-    return SHA256HashingUtil.verifyDigitalSig(sender, data, signature);
+    return SHA256HashingUtil.verifyDigitalSig(sender, data, this.signature);
   }
-
 
 }
