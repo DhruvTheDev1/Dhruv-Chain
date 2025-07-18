@@ -12,6 +12,7 @@ public class TransactionOutput {
     this.recipient = recipient;
     this.value = value;
     this.parentTransactionId = parentTransactionId;
+    this.id = SHA256HashingUtil.applyHash(SHA256HashingUtil.getStringFromKey(recipient) + Float.toString(value) + parentTransactionId);
   }
 
   public boolean isMine(PublicKey publicKey) {

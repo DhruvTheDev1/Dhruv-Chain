@@ -5,7 +5,9 @@ import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 // hash's a string using SHA-256
 public class SHA256HashingUtil {
@@ -57,7 +59,7 @@ public class SHA256HashingUtil {
     try {
       Signature verify = Signature.getInstance("ECDSA", "BC");
       verify.initVerify(publicKey); // initialises the object for verficiation
-      verify.update(data.getBytes()); // 
+      verify.update(data.getBytes()); //
       return verify.verify(signature); // verifies the signature byte against the message and public key
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -67,5 +69,34 @@ public class SHA256HashingUtil {
 
   public static String getStringFromKey(Key key) {
     return Base64.getEncoder().encodeToString(key.getEncoded());
+  }
+
+  // calculates merkle root of a list of transactions
+  public static String getMerkleRoot(List<Transaction> transactions) {
+    // represents current layer of hashes
+    List<String> prevLayer = new ArrayList<>();
+    // goes through every transaction object in the transactions list
+    // adds it transactionId to prevLayer
+    for(Transaction transaction : transactions) {
+      prevLayer.add(transaction.transactionId);
+    }
+    // keeps building layers until one hash left - the root
+    while (prevLayer.size() > 1) {
+      // if number of hashes is odd, duplicates last hash
+      if (prevLayer.size() % 2 != 0) {
+        prevLayer.add(prevLayer.get(prevLayer.size() - 1));
+      }
+      // holds hashes of the next upper layer
+      List<String> treeLayer = new ArrayList<>();
+      // for each pair, hashes the result and adds to treeLayer
+      for(int i = 0; i < prevLayer.size(); i+= 2) {
+        treeLayer.add(applyHash(prevLayer.get(i) + prevLayer.get(i + 1)));
+      }
+      // sets prevLayer to treeLayer
+      // moves up one level
+      prevLayer = treeLayer;
+    }
+
+    return prevLayer.size() == 1 ? prevLayer.get(0) : "";
   }
 }

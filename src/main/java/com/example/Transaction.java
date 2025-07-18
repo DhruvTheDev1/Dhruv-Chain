@@ -98,7 +98,7 @@ public class Transaction {
 
   }
   // sums value of all UTXOs - total crypto available to spend
-  private float getInputsValue() {
+  public float getInputsValue() {
     float total = 0;
     for(TransactionInput num : inputs) {
       if (num.UTXO == null) {
