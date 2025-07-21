@@ -63,47 +63,11 @@ public class TestChain {
     Block block3 = new Block(block2.hash);
     System.out.println("Wallet B is attemping to send 5 coins to Wallet A");
     block3.addTransaction(walletB.sendFunds(walletA.publicKey, 5f));
-    addBlock(block3)
+    addBlock(block3);
     System.out.println("Wallet A Balance: " + walletA.getBalance());
     System.out.println("Wallet B Balance: " + walletB.getBalance());
 
     validate();
-
-    // System.out.println("Public key: " +
-    // SHA256HashingUtil.getStringFromKey(walletA.publicKey));
-    // System.out.println("Private key: " +
-    // SHA256HashingUtil.getStringFromKey(walletA.privateKey));
-
-    // test -> wallet A to wallet B
-    // from, to, value, inputs
-    // Transaction transaction = new Transaction(walletA.publicKey,
-    // walletB.publicKey, 5, null);
-    // transaction.generateDigitalSignature(walletA.privateKey);
-
-    // System.out.println("Signature Verified " +
-    // transaction.verifiyDigitalSignature());
-
-    // //data, previous hash
-    // blockchain.add(new Block("First Block", "0"));
-    // System.out.println("Trying to mine block 1...");
-    // blockchain.get(0).mineBlock(difficulty);
-
-    // blockchain.add(new Block("Second Block", blockchain.get(blockchain.size() -
-    // 1).hash));
-    // System.out.println("Trying to mine block 2...");
-    // blockchain.get(1).mineBlock(difficulty);
-
-    // blockchain.add(new Block("Third Block", blockchain.get(blockchain.size() -
-    // 1).hash));
-    // System.out.println("Trying to mine block 3...");
-    // blockchain.get(2).mineBlock(difficulty);
-
-    // System.out.println("\nBlockchain is valid: " + validate());
-
-    // String blockchainJson = new
-    // GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
-    // System.out.println("\nThe blockchain: ");
-    // System.out.println(blockchainJson);
   }
 
   public static boolean validate() {
