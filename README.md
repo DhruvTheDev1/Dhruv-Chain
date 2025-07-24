@@ -1,51 +1,54 @@
 ### Dhruv-Chain
-This is my personal learning project that helps me to better understand blockchain technology by developing one. I built a basic blockchain in Java by following a tutorial and diving deep into how blockchains work. Instead of blindly copy-pasting, I took
-time to understand each concept from hashes and chaining to mining and how nonce is used in blockchain. This is a proof of implementation to help understand blockchain technology.
+This is my personal learning project to deeply understand blockchain technology by developing one. I built my very own blockchain in Java by following a tutorial and diving deep into how blockchains work. I carefully studied every concept - from hashing
+and chaining blocks, to mining and digital signatures, and finally implementing secure transactions and wallets. This is a proof of implementation to help me understand blockchain technology.
 
-# Part 1 
+# Part 1 - Building the blockchain core
 <img width="828" height="323" alt="image" src="https://github.com/user-attachments/assets/e65ad4ca-0109-4006-b52f-b242b3a59880" />
 
-
-
 ## What I built
-- My first very own blockchain (Dhruv-chain)
-- made up of blocks that stores data
-- Has digital signatures that chains the block together
-- Requires proof of work mining to validate new blocks
-- Chain validation to detect tampering
+- A simple blockchain made up of linked blocks storing data
+- Each block contains:
+  - data (a message)
+  - Previous block's hash
+  - Current blocks hash
+  - Nonce (a number used for mining)
+  - Timestamp (the time the block was created)
 
-### Blocks Store data
-Each block contains:
-- data - some meessage
-- previousHash - hash of the previous block (first block is Genesis block hence previous hash is 0)
-- Hash - current blocks hash
-- nonce - number that we increment when mining until difficulty is met
-- Timestamp - the time the block was created
+- Implemented proof of work (mining) to validate new blocks by finding a hash that meets the required number of leading zeros (difficulty).
+- Validated the blockchain which checks:
+  - If the current blocks hash matches the calculated hash
+  - Verifies the current block correctly references the previous blocks hash
+  - Confirms the block meets the difficulty requirement 
 
-## Hashes
-A block contains the SHA256 hash of the previous block, list of transactions, the current time, address, an arbitrary number called a 'nonce', etc.
-Each block stores the previous blocks hash, creating a chain. If someone tried to tamper with a block, its entire hash changes and will break the chain.
-Hashing is used to ensure data integrity and security
+# Part 2 - Adding transactions, wallets and digital signatures
+Part 2 expands the blockchain to support real cryptocurrency features by implementing wallets, sending signed transactions and digital signatures
+This transforms the chain from storing simple messages to managing actual value transfers — effectively creating a simple crypto coin
 
-E.g.
-A block will contain a digital signature such as:
-- 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
-modifying even a single character will completely change it such as:
-- 5b175fdd8cdfd78c967643ad01f951210364c65642dbf5410f3fb778160585db
 
-## Validating the blockchain
-This checks:
-- If the current blocks hash matches the calculated hash
-- If block's previousHash matches the actual hash of the previous block
-- If the block was properly mined (hash starts with enough zeros) hence meets the difficulty rate
+## Wallet
+- Generates a public and private key using  using elliptic-curve cryptography (generates mathematically linked public and private keys)
+- The public key acts as the wallets address and the private key is used to sign the transaction ensuring only the owner can sign the transaction
+## Transactions
+- Transactions replaces the basic data stored and each transaction records
+  - Senders public key
+  - Receiver's public key
+  - Amount transferred
+  - Transaction inputs and outputs (tracks ownership and unspent funds)
+  - Digital signature to verify the transaction and authenticity
+## Digital Signatures
+- The private key is paired with the public key in asymmetric cryptography and is used to create a digital signature which is then sent to the recipient.
+- Miners can then use the signer's public key to verify the signature.
+## Inputs and Outputs (UTXO)
+- A UTXO (Unspent Transaction Output) is a fundamental concept in cryptocurrencies such as Bitcoin. It specifies the amount leftover after a transaction (the change) that can be used in future transactions.
+- Transactions undergo validation checks such as enough coins for transactions, etc. Upon success, it updates the UTXO by marking inputs spent and outputs as unspent and updates the blockchain state.
+## Transaction Processing
+Transactions undergo validation checks such as valid digital signatures, ensuring the blocks hash is correct, input transaction matches output transaction, etc.
 
-## Proof of work
-For example bitcoin curr has a difficulty rate of:
-126.27 T
-(126,271,255,279,307.00)
-A miner keeps increasing the nonce and your current timestamp until they are able to generate a hash that has a certain number of leading zeros.
-E.g. difficulty rate = 5 "00000"
-The current reward for mining: 3.125 BTC
+# Outcome
+With this changes, the basic blockchain has now developed into a functional cryptocurrency system that allows users to create new wallets which provides public and private keys. Secures the transfer of funds using digital signature algorithm
+to prove ownership and allows users to make transactions on the blockchain.
+
+<img width="798" height="361" alt="image" src="https://github.com/user-attachments/assets/84496441-5a90-4684-8b0f-a8db392f3620" />
 
 ## Credits
 Based on the tutorial ["Creating Your First Blockchain with Java"](https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa) — 
